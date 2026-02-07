@@ -58,10 +58,15 @@ UserRouter.post('/login', async (req, res) => {
     }
 
     if (user.token) {
-      return res.status(400).json({
-        success: false,
-        message: "Account logged in! Logout from other device"
-      })
+      try {
+        jwt.verify(user.token, process.env.JWT_SECRET)
+        return res.status(400).json({
+          success: false,
+          message: "Account logged in! Logout from other device"
+        })
+      } catch {
+        user.token = null
+      }
     }
 
     const comparePassword = await bcrypt.compare(password, user.password)
@@ -69,7 +74,7 @@ UserRouter.post('/login', async (req, res) => {
     if (!comparePassword) {
       return res.status(400).json({
         success: false,
-        message: "Invalid Credentails!"
+        message: "Invalid Credentials!"
       })
     }
 
@@ -78,7 +83,7 @@ UserRouter.post('/login', async (req, res) => {
 
     await user.save()
 
-    return res.status(200).json({
+    return res.status(201).json({
       success: true,
       message: "User logged in successfully!",
       token,
@@ -95,9 +100,15 @@ UserRouter.post('/login', async (req, res) => {
 // Logout User
 UserRouter.post('/logout', AuthMiddleware, async (req, res) => {
   try {
-    const { id } = req
+    const user = req.user
 
-    const user = await User.findById({ _id: id })
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found"
+      })
+    }
+
     user.token = null
 
     await user.save()

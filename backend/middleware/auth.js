@@ -1,9 +1,9 @@
 import jwt from "jsonwebtoken"
-
-const { JWT_SECRET } = process.env
+import User from "../models/User"
 
 const AuthMiddleware = async (req, res, next) => {
   try {
+    const { JWT_SECRET } = process.env
     const authHeader = req.headers.authorization
 
     if (!authHeader || !authHeader.startsWith("Bearer")) {
@@ -24,11 +24,19 @@ const AuthMiddleware = async (req, res, next) => {
 
     const decoded = jwt.verify(token, JWT_SECRET)
 
-    let id = decoded.id
-    req.id = id
+    const user = await User.findById(decoded.id).select('-password')
+
+    if (!user || user.token !== token) {
+      return res.status(401).json({
+        success: false,
+        message: "Authorization failure: Invalid token or session expired"
+      })
+    }
+
+    req.user = user
     next()
   } catch (err) {
-    return res.status(500).json({
+    return res.status(401).json({
       success: false,
       message: `Authorization failure: ${err.message}`
     })
