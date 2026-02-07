@@ -23,6 +23,13 @@ const { MONGO_URI } = process.env
     }
   })()
 
+
+// Routes
+
+import UserRouter from "./routes/user-routes"
+
+app.use('/users', UserRouter)
+
 // Running the server 
 const { PORT } = process.env
 
