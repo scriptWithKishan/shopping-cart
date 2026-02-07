@@ -3,7 +3,8 @@ import mongoose from "mongoose"
 const OrderSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User"
+    ref: "User",
+    required: true
   },
   items: [
     {
@@ -26,6 +27,8 @@ const OrderSchema = new mongoose.Schema({
     type: Number,
     default: 0
   }
+}, {
+  timestamps: true
 })
 
 const Order = mongoose.model("Order", OrderSchema)
