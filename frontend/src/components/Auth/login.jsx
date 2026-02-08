@@ -12,28 +12,30 @@ const Login = () => {
 
   const navigate = useNavigate()
 
-  const onSubmit = e => {
+  const onSubmit = async e => {
     e.preventDefault()
 
     const api = import.meta.env.VITE_BACKEND_URI
 
-      ; (async function () {
-        try {
-          const response = await axios.post(`${api}users/login`, {
-            username,
-            password
-          })
+    try {
+      const response = await axios.post(`${api}users/login`, {
+        username,
+        password
+      })
 
-          const data = response.data
+      const data = response.data
 
-          const token = data.token
-          Cookies.set('jwtToken', token)
+      const token = data.token
+      Cookies.set('jwtToken', token, {
+        secure: true,
+        sameSite: 'strict',
+        expires: 4
+      })
 
-          navigate('/')
-        } catch (err) {
-          setError(err.response?.data?.message)
-        }
-      })()
+      navigate('/')
+    } catch (err) {
+      setError(err.response?.data?.message ?? 'Network error. Please try again.')
+    }
   }
 
   return (

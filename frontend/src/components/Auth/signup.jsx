@@ -11,21 +11,19 @@ const Signup = () => {
 
   const navigate = useNavigate()
 
-  const onSubmit = e => {
+  const onSubmit = async e => {
     e.preventDefault()
 
-      ; (async function () {
-        try {
-          const api = import.meta.env.VITE_BACKEND_URI
-          await axios.post(`${api}users`, {
-            username,
-            password
-          })
-          navigate('/login')
-        } catch (err) {
-          setError(err.response?.data?.message)
-        }
-      })()
+    try {
+      const api = import.meta.env.VITE_BACKEND_URI
+      await axios.post(`${api}users`, {
+        username,
+        password
+      })
+      navigate('/login')
+    } catch (err) {
+      setError(err.response?.data?.message ?? 'Network error. Please try again.')
+    }
   }
 
   return (
