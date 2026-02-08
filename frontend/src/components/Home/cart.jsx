@@ -4,7 +4,6 @@ import axios from 'axios'
 import { toast } from 'react-toastify'
 
 import ItemDetail from './item-detail'
-import { RefreshCcw } from 'lucide-react'
 
 const status = {
   pending: 'PENDING',
@@ -48,17 +47,20 @@ const Cart = () => {
   const success = (
     <ul className='mt-6 flex flex-col gap-2'>
       {cartItems.items.length > 0 ? (
-        cartItems.items.map(eachItem => (
-          <li key={eachItem._id} className='flex items-center gap-1'>
-            <ItemDetail id={eachItem.product} quantity={eachItem.qty} price={eachItem.price} />
+        <>
+          {cartItems.items.map(eachItem => (
+            <li key={eachItem._id} className='flex items-center gap-1'>
+              <ItemDetail id={eachItem.product} quantity={eachItem.qty} price={eachItem.price} />
+            </li>
+          ))}
+          <li>
+            <p className='text-black font-bold'>Total: {formattedCurrency.format(cartItems.total)}</p>
           </li>
-        ))) : (
+        </>
+      ) : (
         <p>Cart is empty</p>
       )
       }
-      <li>
-        <p className='text-black font-bold'>Total: {formattedCurrency.format(cartItems.total)}</p>
-      </li>
     </ul>
   )
 
@@ -89,6 +91,7 @@ const Cart = () => {
         }
       </div>,
       {
+        toastId: 'cart-toast',
         autoClose: 10000,
         closeOnClick: true,
         draggable: true,

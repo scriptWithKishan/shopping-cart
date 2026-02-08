@@ -14,7 +14,7 @@ const ItemDetail = ({ id, quantity, price }) => {
         console.log(err.response)
       }
     })()
-  }, [])
+  }, [id])
 
   return (
     <>

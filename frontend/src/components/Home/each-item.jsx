@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import Cookies from 'js-cookie'
+import { toast } from 'react-toastify'
 
 const EachItem = ({ details }) => {
   const { _id, name, description, image, price } = details
@@ -19,8 +20,10 @@ const EachItem = ({ details }) => {
           Authorization: `Bearer ${token}`
         }
       })
+
+      toast.success('Item added to cart')
     } catch (err) {
-      console.log(err.message)
+      toast.error(err.response?.data?.message ?? 'Failed to add item to cart')
     }
   }
 

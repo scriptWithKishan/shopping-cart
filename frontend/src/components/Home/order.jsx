@@ -95,6 +95,7 @@ const Order = () => {
         }
       </div>,
       {
+        toastId: 'order-toast',
         autoClose: 10000,
         closeOnClick: true,
         draggable: true,

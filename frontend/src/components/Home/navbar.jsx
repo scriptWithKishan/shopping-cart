@@ -41,7 +41,7 @@ const Navbar = () => {
 
       toast.success('Order placed successfully')
     } catch (err) {
-      toast.error(err.response.data.message)
+      toast.error(err.response?.data?.message ?? 'Checkout failed. Please try again.')
     }
   }
 
@@ -50,22 +50,23 @@ const Navbar = () => {
       <h1 className='text-2xl font-bold'>ShopKart</h1>
 
       <div className='flex items-center gap-4'>
-        <button
-          className='bg-white border-1 border-white rounded-md px-3 py-1 hover:border-black'
-          onClick={checkout}
-        >
-          Checkout
-        </button>
-        <Cart />
-        <Order />
-
         {Cookies.get('jwtToken') ? (
-          <button
-            className='bg-black border-1 rounded-md text-white px-3 py-1'
-            onClick={logout}
-          >
-            Logout
-          </button>
+          <>
+            <button
+              className='bg-white border-1 border-white rounded-md px-3 py-1 hover:border-black'
+              onClick={checkout}
+            >
+              Checkout
+            </button>
+            <Cart />
+            <Order />
+            <button
+              className='bg-black border-1 rounded-md text-white px-3 py-1'
+              onClick={logout}
+            >
+              Logout
+            </button>
+          </>
         ) : (
           <button
             className='bg-black border-1 rounded-md text-white px-3 py-1'
@@ -73,9 +74,10 @@ const Navbar = () => {
           >
             Login
           </button>
-        )}
-      </div>
-    </div>
+        )
+        }
+      </div >
+    </div >
   )
 }
 
