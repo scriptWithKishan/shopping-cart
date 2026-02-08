@@ -56,4 +56,33 @@ ProductRouter.get('/', async (req, res) => {
   }
 })
 
+// Get a single product
+ProductRouter.get('/:id', async (req, res) => {
+  try {
+    const { id } = req.params
+
+    const product = await Item.findById(id)
+
+    if (!product) {
+      return res.status(404).json({
+        success: false,
+        message: 'Product not found'
+      })
+    }
+
+    const name = product.name
+
+    return res.status(200).json({
+      success: true,
+      message: 'Product fetched successfully',
+      name
+    })
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      message: `Internal server error: ${err.message}`
+    })
+  }
+})
+
 export default ProductRouter
