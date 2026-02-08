@@ -34,7 +34,7 @@ const ItemList = () => {
     <ul className="flex-1 px-40 py-10 list-none flex items-center flex-wrap gap-10">
       {
         products.map(eachItem => (
-          <EachItem details={eachItem} />
+          <EachItem key={eachItem._id} details={eachItem} />
         ))
       }
     </ul>
@@ -42,7 +42,7 @@ const ItemList = () => {
 
   const pending = (
     <div className="flex-1 w-full flex items-center justify-center">
-      <div class="w-12 h-12 border-4 border-black border-t-transparent rounded-full animate-spin"></div>
+      <div className="w-12 h-12 border-4 border-black border-t-transparent rounded-full animate-spin"></div>
     </div>
   )
 
