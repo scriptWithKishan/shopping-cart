@@ -11,8 +11,6 @@ CartRouter.post('/', AuthMiddleware, async (req, res) => {
     const userId = req.user._id
     const { productId } = req.body
 
-
-
     const product = await Item.findById(productId)
 
     if (!product) {
