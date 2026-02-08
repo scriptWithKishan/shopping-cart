@@ -25,7 +25,7 @@ CartRouter.post('/', AuthMiddleware, async (req, res) => {
     let cart = await Cart.findOne({ userId })
 
     if (cart) {
-      const itemIndex = cart.items.findIndex(p => p.product == productId)
+      const itemIndex = cart.items.findIndex(p => p.product.toString() === productId.toString())
 
       if (itemIndex > -1) {
         let productItem = cart.items[itemIndex]
@@ -81,7 +81,7 @@ CartRouter.get('/', AuthMiddleware, async (req, res) => {
       success: true,
       message: 'Cart fetched successfully',
       cart
-    })  
+    })
   } catch (err) {
     return res.status(500).json({
       success: false,
