@@ -42,10 +42,9 @@ UserRouter.post('/', async (req, res) => {
 })
 
 // Login User
-const { JWT_SECRET } = process.env
-
 UserRouter.post('/login', async (req, res) => {
   try {
+    const { JWT_SECRET } = process.env
     const { username, password } = req.body
 
     const user = await User.findOne({ username })
