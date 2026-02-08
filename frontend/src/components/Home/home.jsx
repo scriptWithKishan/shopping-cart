@@ -7,7 +7,6 @@ const Home = () => {
     <div className='min-h-screen bg-gray-100 flex flex-col'>
       <Navbar />
       <ItemList />
-      Home
     </div>
   )
 }
