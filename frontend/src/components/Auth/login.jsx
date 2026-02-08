@@ -18,7 +18,7 @@ const Login = () => {
     const api = import.meta.env.VITE_BACKEND_URI
 
     try {
-      const response = await axios.post(`${api}users/login`, {
+      const response = await axios.post(`${api}/users/login`, {
         username,
         password
       })

@@ -16,7 +16,7 @@ const Signup = () => {
 
     try {
       const api = import.meta.env.VITE_BACKEND_URI
-      await axios.post(`${api}users`, {
+      await axios.post(`${api}/users`, {
         username,
         password
       })
