@@ -30,7 +30,7 @@ CartRouter.post('/', AuthMiddleware, async (req, res) => {
       if (itemIndex > -1) {
         let productItem = cart.items[itemIndex]
         productItem.qty += 1
-        productItem.price = product.price * productItem.qty
+        productItem.price = product.price
         cart.items[itemIndex] = productItem
       } else {
         cart.items.push({
@@ -71,10 +71,10 @@ CartRouter.post('/', AuthMiddleware, async (req, res) => {
 CartRouter.get('/', AuthMiddleware, async (req, res) => {
   try {
     const userId = req.user._id
-    const cart = await Cart.findOne({ userId })
+    let cart = await Cart.findOne({ userId })
 
     if (!cart) {
-      const cart = await Cart.create({ userId })
+      cart = await Cart.create({ userId })
     }
 
     return res.status(200).json({
