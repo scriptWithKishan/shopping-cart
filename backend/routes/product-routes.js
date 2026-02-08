@@ -9,7 +9,6 @@ import AuthMiddleware from '../middleware/auth'
 ProductRouter.post('/', AuthMiddleware, async (req, res) => {
   try {
     const { name, description, price, image } = req.body
-    console.log(req.body)
 
     if (!name || !description || !price || !image) {
       return res.status(400).json({
