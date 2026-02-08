@@ -27,8 +27,17 @@ const { MONGO_URI } = process.env
 // Routes
 
 import UserRouter from "./routes/user-routes"
+import ProductRouter from "./routes/product-routes"
 
 app.use('/users', UserRouter)
+app.use('/items', ProductRouter)
+
+app.use((req, res) => {
+  res.status(404).json({
+    success: false,
+    message: 'Page not found'
+  })
+})
 
 // Running the server 
 const { PORT } = process.env

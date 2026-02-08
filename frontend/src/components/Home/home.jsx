@@ -4,7 +4,7 @@ import ItemList from './item-list'
 
 const Home = () => {
   return (
-    <div>
+    <div className='min-h-screen bg-gray-100 flex flex-col'>
       <Navbar />
       <ItemList />
       Home
