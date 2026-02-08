@@ -29,10 +29,12 @@ const { MONGO_URI } = process.env
 import UserRouter from "./routes/user-routes"
 import ProductRouter from "./routes/product-routes"
 import CartRouter from './routes/cart-routes'
+import OrderRouter from './routes/order-routes'
 
 app.use('/users', UserRouter)
 app.use('/items', ProductRouter)
 app.use('/carts', CartRouter)
+app.use('/orders', OrderRouter)
 
 app.use((req, res) => {
   res.status(404).json({
