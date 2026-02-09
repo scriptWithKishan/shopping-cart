@@ -2,8 +2,8 @@ import express from 'express'
 
 const ProductRouter = express.Router()
 
-import Item from '../models/Item'
-import AuthMiddleware from '../middleware/auth'
+import Item from '../models/Item.js'
+import AuthMiddleware from '../middleware/auth.js'
 
 // Post a product
 ProductRouter.post('/', AuthMiddleware, async (req, res) => {

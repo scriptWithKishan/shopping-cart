@@ -2,9 +2,9 @@ import express from 'express'
 
 const OrderRouter = express.Router()
 
-import AuthMiddleware from '../middleware/auth'
-import Order from '../models/Order'
-import Cart from '../models/Cart'
+import AuthMiddleware from '../middleware/auth.js'
+import Order from '../models/Order.js'
+import Cart from '../models/Cart.js'
 
 OrderRouter.post('/', AuthMiddleware, async (req, res) => {
   try {

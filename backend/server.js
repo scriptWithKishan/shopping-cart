@@ -26,10 +26,10 @@ const { MONGO_URI } = process.env
 
 // Routes
 
-import UserRouter from "./routes/user-routes"
-import ProductRouter from "./routes/product-routes"
-import CartRouter from './routes/cart-routes'
-import OrderRouter from './routes/order-routes'
+import UserRouter from "./routes/user-routes.js"
+import ProductRouter from "./routes/product-routes.js"
+import CartRouter from './routes/cart-routes.js'
+import OrderRouter from './routes/order-routes.js'
 
 app.use('/users', UserRouter)
 app.use('/items', ProductRouter)
